@@ -20,7 +20,7 @@ import json
 
 class ImageBackup:
     def __init__(self, name_string='', image_types=['.jpg', '.jpeg', '.png', '.gif']):
-        self.root_dir = os.getcwd()
+        self.root_dir = os.path.abspath(os.path.dirname(__file__))
         self.name_string = name_string
         self.image_types = image_types
         self.backup_files = []
