@@ -28,6 +28,8 @@ class ImageBackup:
 
     def backup_images(self):
         for dirpath, dirnames, filenames in os.walk(self.root_dir):
+            if os.path.basename(dirpath) != 'skin0000':
+                continue
             if 'bak' in dirnames:
                 dirnames.remove('bak')
             backed_up_files = []
@@ -46,10 +48,15 @@ class ImageBackup:
                 self.no_image_dirs.append(dirpath)
             else:
                 self.backup_files.append((dirpath, backed_up_files))
-        
+
         self.backup_files = dict(self.backup_files)
         with open('backup_report.json', 'w') as f:
             json.dump({'backup_files': self.backup_files, 'no_image_dirs': self.no_image_dirs}, f, indent=4)
+
+
+            self.backup_files = dict(self.backup_files)
+            with open('backup_report.json', 'w') as f:
+                json.dump({'backup_files': self.backup_files, 'no_image_dirs': self.no_image_dirs}, f, indent=4)
 
     def write_report(self):
         report = {
