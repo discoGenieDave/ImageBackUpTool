@@ -10,4 +10,4 @@ Usage:
 5. Use the name of the file you are looking for and the type of image
 6. A back up dir called bak will be created next to each instance found.
 
-
+Updated Code
