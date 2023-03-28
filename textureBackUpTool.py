@@ -26,30 +26,30 @@ class ImageBackup:
         self.backup_files = []
         self.no_image_dirs = []
 
-def backup_images(self):
-    for dirpath, dirnames, filenames in os.walk(self.root_dir):
-        if 'bak' in dirnames:
-            dirnames.remove('bak')
-        bak_dir = os.path.join(dirpath, 'bak')
-        if not os.path.isdir(bak_dir):
-            os.makedirs(bak_dir)
-        backed_up_files = []
-        for filename in filenames:
-            ext = os.path.splitext(filename)[-1].lower()
-            if ext in self.image_types and self.name_string in filename:
-                src_path = os.path.join(dirpath, filename)
-                backup_path = os.path.join(bak_dir, filename)
-                shutil.copy2(src_path, backup_path)
-                backed_up_files.append(filename)
-                print(f"Backed up {filename}")
-        if not backed_up_files:
-            self.no_image_dirs.append(dirpath)
-        else:
-            self.backup_files.append((dirpath, backed_up_files))
-    
-    self.backup_files = dict(self.backup_files)
-    with open('backup_report.json', 'w') as f:
-        json.dump({'backup_files': self.backup_files, 'no_image_dirs': self.no_image_dirs}, f, indent=4)
+    def backup_images(self):
+        for dirpath, dirnames, filenames in os.walk(self.root_dir):
+            if 'bak' in dirnames:
+                dirnames.remove('bak')
+            bak_dir = os.path.join(dirpath, 'bak')
+            if not os.path.isdir(bak_dir):
+                os.makedirs(bak_dir)
+            backed_up_files = []
+            for filename in filenames:
+                ext = os.path.splitext(filename)[-1].lower()
+                if ext in self.image_types and self.name_string in filename:
+                    src_path = os.path.join(dirpath, filename)
+                    backup_path = os.path.join(bak_dir, filename)
+                    shutil.copy2(src_path, backup_path)
+                    backed_up_files.append(filename)
+                    print(f"Backed up {filename}")
+            if not backed_up_files:
+                self.no_image_dirs.append(dirpath)
+            else:
+                self.backup_files.append((dirpath, backed_up_files))
+        
+        self.backup_files = dict(self.backup_files)
+        with open('backup_report.json', 'w') as f:
+            json.dump({'backup_files': self.backup_files, 'no_image_dirs': self.no_image_dirs}, f, indent=4)
 
 
     def write_report(self):
